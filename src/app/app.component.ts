@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
-
+import { MatDialog } from '@angular/material';
+import { InitialDialogComponent } from './components/initial-dialog/initial-dialog.component'; 
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,15 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(@Inject(AuthService) private authService: AuthService) { 
+  constructor(@Inject(AuthService) private authService: AuthService, private dialog:MatDialog) { 
     this.authService.initAuthListener();
+    this.openInitialDialog();
    }
-  title = 'consultorio-ayacucho';
+
+  openInitialDialog() {
+    this.dialog.open(InitialDialogComponent, {
+      width: '400px',
+    })
+  }
+
 }

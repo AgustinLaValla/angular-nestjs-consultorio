@@ -15,11 +15,13 @@ import { environment } from 'src/environments/environment';
 import { appReducer } from './store/app.reducer';
 import { effectsArray } from './store/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { InitialDialogComponent } from './components/initial-dialog/initial-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    InitialDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
 
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [InitialDialogComponent]
 })
 export class AppModule { }
