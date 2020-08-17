@@ -195,7 +195,7 @@ export class StatisticsComponent implements OnDestroy {
     pdf.create().open();
   };
 
-  generateColumnsData(pdf: PdfMakeWrapper, includeDiagnoses: true | undefined) {
+  generateColumnsData(pdf: PdfMakeWrapper, includeDiagnoses: true | undefined | unknown) {
     const obrasSociales = this.getObrasSociales(this.turnos);
     obrasSociales.map((mutual, idx) => {
       let columns: any[] = includeDiagnoses ?

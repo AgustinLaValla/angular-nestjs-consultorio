@@ -47,7 +47,7 @@
         <mat-form-field>
             <mat-label>Mutual</mat-label>
             <mat-select name="obra_social" [(ngModel)]="pacient.obraSocial" required [compareWith]="compareMutuals">
-                <mat-option *ngFor="let mutual of mutuales" [(value)]="mutual">{{mutual.nombre}}</mat-option>
+                <mat-option *ngFor="let mutual of mutuales" [value]="mutual">{{mutual.nombre}}</mat-option>
             </mat-select>
         </mat-form-field>
 

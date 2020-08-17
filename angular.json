@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "consultorio-ayacucho-app"
+  "defaultProject": "consultorio-ayacucho-app",
+  "cli": {
+    "analytics": "59666f20-5bd2-4ef3-8543-4a25a77aec22"
+  }
 }
