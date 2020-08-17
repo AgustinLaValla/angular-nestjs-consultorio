@@ -4,7 +4,7 @@ import { AppState, getMutuales, getIsLoading, getMutualesError } from 'src/app/s
 import { Subscription } from 'rxjs';
 import { Mutual } from 'src/app/interfaces/mutual.interface';
 import { deactivateLoading, loadGetMutuales, loadDeleteMutual } from 'src/app/store/actions';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { MutualesDialogComponent } from './mutuales-dialog/mutuales-dialog.component';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';

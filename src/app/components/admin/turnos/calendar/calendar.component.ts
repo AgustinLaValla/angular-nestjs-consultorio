@@ -45,7 +45,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   public calendarEvents: EventInput[] = [];
   public validRange: DateRangeInput = { start: this.getStartRange(), end: this.getEndRange() }
 
-  @ViewChild('calendar', { static: false }) calendar: FullCalendarComponent;
+  @ViewChild('calendar') calendar: FullCalendarComponent;
 
   constructor(private store: Store<AppState>, private dialog: MatDialog) { }
 
