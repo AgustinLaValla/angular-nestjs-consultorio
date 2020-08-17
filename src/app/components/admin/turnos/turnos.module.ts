@@ -53,7 +53,6 @@ registerLocaleData(localeEsAr, 'es-Ar');
     FullCalendarModule
   ],
   exports: [MaterialModule, FormsModule, MatMomentDateModule, ScrollableDirective, EspecialistasListComponent],
-  entryComponents: [TurnosDialogComponent, PacientdataDialogComponent],
   providers: [ 
     { provide: LOCALE_ID, useValue: 'es-AR' } ,
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR'  },

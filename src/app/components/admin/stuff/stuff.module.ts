@@ -17,6 +17,5 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   exports:[MaterialModule, FormsModule],
-  entryComponents:[DialogMemberComponent]
 })
 export class StuffModule { }

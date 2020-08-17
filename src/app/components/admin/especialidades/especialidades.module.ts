@@ -18,7 +18,6 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
   ],
   exports: [MaterialModule, FormsModule],
-  entryComponents: [DialogServicesComponent]
 
 })
 export class EspecialidadesModule { }

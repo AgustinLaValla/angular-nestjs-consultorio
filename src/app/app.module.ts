@@ -35,6 +35,5 @@ import { InitialDialogComponent } from './components/initial-dialog/initial-dial
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [InitialDialogComponent]
 })
 export class AppModule { }
