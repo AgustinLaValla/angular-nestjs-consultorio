@@ -16,6 +16,7 @@ import { filter, map, tap } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 import { Servicio } from 'src/app/interfaces/especialidad.interface';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { Mutual } from 'src/app/interfaces/mutual.interface';
 
 @Component({
   selector: 'app-turnos-dialog',
@@ -65,6 +66,8 @@ export class TurnosDialogComponent implements OnInit, OnDestroy {
 
   public diagnostico: string;
 
+  public mutualIsAccepted: boolean = true;
+
   myFilter = (d: moment.Moment): boolean => {
     const day = d.day();
     return day !== 0 && day !== 6;
@@ -84,7 +87,6 @@ export class TurnosDialogComponent implements OnInit, OnDestroy {
   initDialog() {
     //SUBSCRIPTIONS
     if (this.data.turno) {
-      console.log(this.data.turno);
       this.new_turno = { ...this.data.turno };
       this.diagnostico = this.data.turno.diagnostico;
       this.getTurnoTime(this.data.turno.desde, this.data.turno.hasta);
@@ -111,7 +113,6 @@ export class TurnosDialogComponent implements OnInit, OnDestroy {
   getPacient() {
     this.pacientSubs$ = this.store.select(getPacient).pipe(
       filter(pacient => !isNullOrUndefined(pacient)),
-      tap(console.log),
       map((pacient) => {
         const { nombre, apellido, _id, obraSocial, nacimiento, /*nacimiento_seconds*/ } = pacient;
         if (nombre && apellido && _id && obraSocial && nacimiento /*&& nacimiento_seconds*/) {
@@ -123,6 +124,7 @@ export class TurnosDialogComponent implements OnInit, OnDestroy {
           this.new_turno.telefono = (pacient.telefono) ? pacient.telefono : '';
           this.new_turno.nacimientoSeconds = pacient.nacimientoSeconds ? pacient.nacimientoSeconds : moment(pacient.nacimiento).clone().unix();
           this.new_turno.numeroDeAfiliado = pacient.numeroDeAfiliado ? pacient.numeroDeAfiliado : '';
+          this.findMutual(pacient.obraSocial);
         }
       }),
     ).subscribe();
@@ -242,6 +244,25 @@ export class TurnosDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  findMutual(mutual: Mutual) {
+    const mutualIsAccepted = this.miembro.mutualesAdheridas.find(obraSocial => obraSocial._id === mutual._id);
+    if (!mutualIsAccepted) {
+      this.mutualIsAccepted = false;
+      this.alertsService.showErrorAlert(
+        'Mutual no adherida',
+        this.miembro.genero === 'Masculino' ?
+          `El especialista ${this.miembro.nombre} no acepta la mutual: ${this.new_turno.obraSocial.nombre}. Registre el turno como particular o añada otra mutual` 
+          : `La especialista ${this.miembro.nombre} no acepta la mutual: ${this.new_turno.obraSocial.nombre}. Registre el turno como particular o añada otra mutual`
+      )
+    } else {
+      this.mutualIsAccepted = true;
+    }
+    this.throwAlert();
+  }
+
+  throwAlert() {
+    return !this.mutualIsAccepted && this.miembro._id && this.new_turno.obraSocial._id;
+  }
 
 
   compare(hora_desde: moment.Moment, hora_hasta: moment.Moment) {

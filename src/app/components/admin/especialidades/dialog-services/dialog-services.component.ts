@@ -111,8 +111,6 @@ export class DialogServicesComponent implements OnInit, OnDestroy {
   };
 
 
-
-
   ngOnDestroy(): void {
     this.loadingSubs$.unsubscribe();
     this.especialidadSubs$.unsubscribe();

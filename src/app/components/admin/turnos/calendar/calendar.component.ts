@@ -70,7 +70,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
         };
       }),
       filter((turnos) => !isNullOrUndefined(turnos)),
-      tap(console.log),
       map((turnos) => {
         this.calendarEvents = [];
         this.turnos = turnos;

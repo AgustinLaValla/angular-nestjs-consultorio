@@ -117,10 +117,12 @@
                         name="obra_social" 
                         [disabled]="data.action === 'Añadir Diagnóstico'"
                         [compareWith]="compareMutuales"
+                        (ngModelChange)="findMutual($event)"
                         >
                 <mat-option *ngFor="let mutual of miembro.mutualesAdheridas" [value]="mutual">{{ mutual.nombre }}</mat-option>
             </mat-select>
             <mat-error>Este campo es obligatorio</mat-error>
+            <mat-error *ngIf="!mutualIsAccepted">El médico {{miembro.nombre}} no adhiere a la mutual: {{new_turno.obraSocial.nombre}}</mat-error>
         </mat-form-field>
 
         <mat-form-field *ngIf="miembro && new_turno.obraSocial.nombre !== 'Particular'">
@@ -164,7 +166,7 @@
                (click)="showDetails()"
                 mat-raised-button  
                 color="primary"
-                [disabled]="!f.valid"
+                [disabled]="!f.valid || !mutualIsAccepted"
         >       Agendar turno
         </button>
 
@@ -173,7 +175,7 @@
                (click)="showDetails()"
                 mat-raised-button  
                 color="primary"
-                [disabled]="!f.valid"
+                [disabled]="!f.valid || !mutualIsAccepted"
         >       Guardar Cambios
         </button>
 
