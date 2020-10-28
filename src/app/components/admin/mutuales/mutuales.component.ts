@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState, getMutuales, getIsLoading, getMutualesError } from 'src/app/store/app.reducer';
 import { Subscription } from 'rxjs';
 import { Mutual } from 'src/app/interfaces/mutual.interface';
-import { deactivateLoading, loadGetMutuales, loadDeleteMutual } from 'src/app/store/actions';
+import { deactivateLoading, loadGetMutuales, loadDeleteMutual, hiddeProgressBar } from 'src/app/store/actions';
 import { MatDialog } from '@angular/material/dialog';
 import { MutualesDialogComponent } from './mutuales-dialog/mutuales-dialog.component';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -35,14 +35,15 @@ export class MutualesComponent implements OnInit, OnDestroy {
     private matIconRegistry: MatIconRegistry,
     private alertsService: AlertsService
   ) {
+    this.store.dispatch(loadGetMutuales());
+    this.store.dispatch(hiddeProgressBar());
+  }
+
+  ngOnInit() {
     this.loadingSubs$ = this.store.select(getIsLoading).subscribe(loading => this.loading = loading);
     this.getMutuales();
     this.handleErrors();
     this.matIconRegistry.addSvgIcon('medical_tag', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/medical-tag.svg'));
-  }
-
-  ngOnInit() {
-    this.store.dispatch(loadGetMutuales());
   }
 
   getMutuales() {
@@ -75,13 +76,13 @@ export class MutualesComponent implements OnInit, OnDestroy {
       tap(() => this.store.dispatch(deactivateLoading())),
       filter(error => !isNullOrUndefined(error)),
       tap(error => {
-        if(error.status === 422) {
+        if (error.status === 422) {
           this.alertsService.showErrorAlert('Nombre repetido', error.error.message);
-        } else { 
+        } else {
           this.alertsService.showErrorAlert(error.name, error.statusText);
         }
         this.store.dispatch(loadGetMutuales());
-        
+
       })
     ).subscribe();
   };

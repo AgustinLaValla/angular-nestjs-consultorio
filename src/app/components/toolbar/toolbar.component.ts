@@ -7,7 +7,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  public title:string = 'Consultorio demo App';
+  public title:string = 'Medical Appoiments App';
   @Output() public opened = new EventEmitter<void>();
 
   constructor() { }

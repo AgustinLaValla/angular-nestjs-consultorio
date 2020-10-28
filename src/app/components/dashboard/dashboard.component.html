@@ -3,11 +3,11 @@
 <app-toolbar (opened)="opened = !opened"></app-toolbar>
 <mat-progress-bar *ngIf="showProgressBar" mode="indeterminate" color="warn"></mat-progress-bar>
 <!------------------------------------------------------ SideNav  ------------------------------------------------------>
-<mat-sidenav-container style="-webkit-user-drag: none; -webkit-user-select: none;">
+<mat-sidenav-container style="-webkit-user-drag: none;">
 
     <mat-sidenav #sidenav [(opened)]="opened" mode="side">
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/']">
+            <a mat-list-item [routerLink]="['/']" (click)="activateProgressBar()">
                 <mat-icon>schedule</mat-icon>
                 <span style="margin-left: 10px;">Turnos</span>
             </a>
@@ -16,7 +16,7 @@
         <mat-divider></mat-divider>
 
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/estadisticas']">
+            <a mat-list-item [routerLink]="['/estadisticas']" (click)="activateProgressBar()">
                 <mat-icon>insert_chart_outlined</mat-icon>
                 <span style="margin-left: 10px;">Estidísticas y Facturación</span>
             </a>
@@ -25,23 +25,23 @@
         <mat-divider></mat-divider>
 
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/stuff']">
+            <a mat-list-item [routerLink]="['/stuff']" (click)="activateProgressBar()">
                 <mat-icon>group</mat-icon>
-                <span style="margin-left: 10px;">Stuff</span>
+                <span style="margin-left: 10px;">Staff</span>
             </a>
         </mat-nav-list>
 
         <mat-divider></mat-divider>
 
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/especialidades']">
+            <a mat-list-item [routerLink]="['/especialidades']" (click)="activateProgressBar()">
                 <mat-icon>assignment</mat-icon>
                 <span style="margin-left: 10px;">Especialidades</span>
             </a>
         </mat-nav-list>
 
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/mutuales']">
+            <a mat-list-item [routerLink]="['/mutuales']" (click)="activateProgressBar()">
                 <mat-icon svgIcon="medical_folders"></mat-icon>
                 <span style="margin-left: 10px;">Mutuales</span>
             </a>

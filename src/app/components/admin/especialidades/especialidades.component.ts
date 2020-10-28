@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogServicesComponent } from './dialog-services/dialog-services.component';
 import { Store } from '@ngrx/store';
 import { AppState, getEspecialidades, getIsLoading, getEspecialidadesError, getEspecialidadError } from 'src/app/store/app.reducer';
-import { loadDeleteEspecialidad, loadGetEspecialidades, deactivateLoading } from 'src/app/store/actions';
+import { loadDeleteEspecialidad, loadGetEspecialidades, deactivateLoading, hiddeProgressBar } from 'src/app/store/actions';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { MatIconRegistry } from '@angular/material/icon'
@@ -36,17 +36,17 @@ export class EspecialidadesComponent implements OnInit, OnDestroy {
     private domSanatizer: DomSanitizer,
     private alertsService: AlertsService
   ) {
+    this.store.dispatch(loadGetEspecialidades());
+  }
 
+  ngOnInit() {
+    this.store.dispatch(hiddeProgressBar());
     this.setCustomMedicalIcons();
     this.loadingSubs$ = this.store.select(getIsLoading).subscribe((loading: boolean) => this.loading = loading);
     this.getEspecialidades();
     this.handleErrors();
     this.handlerEspecialidadError();
-
-    this.store.dispatch(loadGetEspecialidades());
   }
-
-  ngOnInit() { }
 
 
   getEspecialidades() {
@@ -101,15 +101,15 @@ export class EspecialidadesComponent implements OnInit, OnDestroy {
       tap(() => this.store.dispatch(deactivateLoading())),
       filter(error => !isNullOrUndefined(error)),
       tap(error => {
-        if(error.status === 422) {
+        if (error.status === 422) {
           this.alertsService.showErrorAlert('Nombre repetido', error.error.message);
-        } else { 
+        } else {
           this.alertsService.showErrorAlert(error.name, error.statusText);
         };
       })
     ).subscribe();
   };
-  
+
   handlerEspecialidadError() {
     this.especialidadError$ = this.store.select(getEspecialidadError).pipe(
       filter(error => !isNullOrUndefined(error)),

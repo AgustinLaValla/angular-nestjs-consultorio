@@ -55,7 +55,9 @@ export class StatisticsComponent implements OnDestroy {
     this.getMiembro();
   };
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.store.dispatch(hiddeProgressBar());
+  }
 
   showStatistics() {
     this.showStatisticsSubs$ = this.store.select(showStatistics).subscribe(show => this.show = show);

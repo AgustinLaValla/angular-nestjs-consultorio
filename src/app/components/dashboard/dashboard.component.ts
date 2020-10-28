@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, getShowProgressBar } from 'src/app/store/app.reducer';
+import { showProgressBar } from 'src/app/store/actions';
 
 
 @Component({
@@ -39,6 +40,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   logOut() {
     this.authService.logout();
   };
+
+  activateProgressBar() {
+    this.store.dispatch(showProgressBar());
+  }
 
   ngOnDestroy(): void {
     this.showProgressBar$.unsubscribe();

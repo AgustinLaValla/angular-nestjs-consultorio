@@ -1,8 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, openTable, getPacientData, getShowTurnosData, getTableType, getTurnosError } from 'src/app/store/app.reducer';
-import { hidePacientData, loadResetEspecialidad, HideTurnosData, loadResetMiembro, loadResetTurnoList, deactivateLoading } from 'src/app/store/actions';
+import { hidePacientData, loadResetEspecialidad, HideTurnosData, loadResetMiembro, loadResetTurnoList, deactivateLoading, hiddeProgressBar } from 'src/app/store/actions';
 import { map, tap, filter } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 import { AlertsService } from 'src/app/services/alerts.service';
@@ -12,7 +12,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
   templateUrl: './turnos.component.html',
   styleUrls: ['./turnos.component.css']
 })
-export class TurnosComponent implements OnDestroy {
+export class TurnosComponent implements OnInit, OnDestroy {
 
   private showTurnosDataSubs$ = new Subscription();
   public showTurnosData: boolean = false;
@@ -26,7 +26,13 @@ export class TurnosComponent implements OnDestroy {
   private tableTypeSubs$ = new Subscription();
   public tableType: 'Especialistas' | 'Turnos Pasados';
 
-  constructor(private store: Store<AppState>, private alertsService:AlertsService) {
+  constructor(
+    private store: Store<AppState>,
+    private alertsService: AlertsService
+  ) { }
+
+  ngOnInit(): void {
+    this.store.dispatch(hiddeProgressBar());
     this.showTurnosDataSelectorsSubscription();
     this.showPacientDataSubscription();
     this.getTableData();
@@ -66,7 +72,7 @@ export class TurnosComponent implements OnDestroy {
     this.store.select(getTurnosError).pipe(
       filter(error => !isNullOrUndefined(error)),
       tap(error => {
-        if(error.status === 422) {
+        if (error.status === 422) {
           this.alertsService.showErrorAlert(error.error.message.message, error.error.message.details);
         }
       }),

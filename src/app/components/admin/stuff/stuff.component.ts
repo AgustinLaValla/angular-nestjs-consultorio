@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState, getStuff, getIsLoading, getStuffError } from 'src/app/store/app.reducer';
 import { Miembro } from 'src/app/interfaces/miembro.interface';
-import { deactivateLoading, loadGetStuff, loadDeleteMiembro } from 'src/app/store/actions';
+import { deactivateLoading, loadGetStuff, loadDeleteMiembro, hiddeProgressBar } from 'src/app/store/actions';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogMemberComponent } from './dialog-member/dialog-member.component';
 import { Subscription } from 'rxjs';
@@ -31,13 +31,15 @@ export class StuffComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private alertsService: AlertsService
   ) {
-    this.loadingSubs = this.store.select(getIsLoading).subscribe((loading: boolean) => this.loading = loading)
-    this.getStuff();
-    this.handleErrors();
     this.store.dispatch(loadGetStuff())
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.store.dispatch(hiddeProgressBar());
+    this.loadingSubs = this.store.select(getIsLoading).subscribe((loading: boolean) => this.loading = loading)
+    this.getStuff();
+    this.handleErrors();
+  }
 
   getStuff() {
     this.stuffSubs = this.store.select(getStuff).pipe(
