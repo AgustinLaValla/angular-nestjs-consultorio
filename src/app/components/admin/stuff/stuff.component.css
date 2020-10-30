@@ -1,63 +1,66 @@
 .main-container {
-    height: auto;
-    /* overflow: hidden; */
+  height: auto;
+  /* overflow: hidden; */
 }
-.container { 
-   
+.container {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  grid-column-gap: 10px;
+  grid-row-gap: 15px;
+  justify-content: center;
+}
+.add_member_btn {
+  top: 20px;
+  left: 10px;
+  background-color: #6a0080;
+  color: white;
+}
+
+.spinner-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#alert-card {
+  text-align: center;
+  background: rgba(233, 30, 99, 0.7);
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  padding: 15 0px;
+  font-size: 20px;
+  margin-top: 50px;
+  width: 95%;
+  margin: 50px auto 0 auto;
+}
+
+@media screen and (min-width: 500px) and (max-width: 959px) {
+  .container {
     margin-top: 70px;
     display: grid;
-    grid-template-columns: 24% 24% 24% 24%;
+    grid-template-columns: 49% 49%;
     grid-column-gap: 10px;
     grid-row-gap: 15px;
     justify-content: center;
-}
-.add_member_btn  {
-    top: 20px;
-    left: 10px;
-    background-color: #6a0080;
-    color: white;
+  }
+
+  #alert-card {
+    width: 80%;
+  }
 }
 
-.spinner-container { 
-    min-height: 80vh;
-    display: flex;
+@media screen and (max-width: 499px) {
+  .container {
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: 90%;
+    grid-column-gap: 10px;
+    grid-row-gap: 15px;
     justify-content: center;
-    align-items: center;
-}
-
-#alert-card { 
-    text-align: center;
-    background:rgba(233, 30, 99, 0.7);
-    color: rgba(0, 0, 0, 0.7);
-    font-weight: 400;
-    padding: 15 0px;
-    font-size: 20px;
-    margin-top: 50px;
-    width: 95%;
-    margin: 50px auto 0 auto;
-}
-
-
-@media screen and (min-width: 600px) and (max-width: 959px) {
-    .container { 
-   
-        margin-top: 70px;
-        display: grid;
-        grid-template-columns: 49% 49%;
-        grid-column-gap: 10px;
-        grid-row-gap: 15px;
-        justify-content: center;
-    }
-}
-
-@media screen and (max-width: 599px) {
-    .container { 
-   
-        margin-top: 70px;
-        display: grid;
-        grid-template-columns: 98%;
-        grid-column-gap: 10px;
-        grid-row-gap: 15px;
-        justify-content: center;
-    }
+  }
+  #alert-card {
+    width: 70%;
+  }
 }

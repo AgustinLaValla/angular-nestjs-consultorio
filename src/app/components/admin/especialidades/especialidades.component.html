@@ -3,12 +3,12 @@
     <button (click)="openDialog('Agregar Especialidad')" mat-raised-button class="add_esp_btn">
         <mat-icon>add</mat-icon> Agregar Especialidad
     </button>
-    <mat-list *ngIf="especialidades && especialidades.length > 0" style="width: 500px">
+    <mat-list *ngIf="especialidades && especialidades.length > 0" class="list-container">
         <h3 mat-subheader>Especialidades</h3>
         <mat-list-item *ngFor="let especialidad of especialidades" style="cursor: pointer;">
             <mat-icon mat-list-icon svgIcon="medical_bag"></mat-icon>
             <h4 (click)="openDialog('Ver Servicios', especialidad._id)" class="list-unit" mat-line matTooltip="Ver servicios">{{ especialidad.nombreEspecialidad }}</h4>
-            <span style="width: 60px"></span>
+
             <button (click)="openDialog('Editar Servicios', especialidad._id)" mat-icon-button color="primary" matTooltip="Editar">
                 <mat-icon >edit</mat-icon>
             </button>

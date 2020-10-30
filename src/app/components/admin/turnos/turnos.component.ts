@@ -6,6 +6,8 @@ import { hidePacientData, loadResetEspecialidad, HideTurnosData, loadResetMiembr
 import { map, tap, filter } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { UiService } from 'src/app/services/ui.service';
+import { CurrentPage } from 'src/app/utils/current-page.enum';
 
 @Component({
   selector: 'app-turnos',
@@ -28,7 +30,8 @@ export class TurnosComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private uiService: UiService
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +40,7 @@ export class TurnosComponent implements OnInit, OnDestroy {
     this.showPacientDataSubscription();
     this.getTableData();
     this.turnosErrorHandler();
+    this.uiService.currentPage.next(CurrentPage.TURNOS);
   }
 
   showTurnosDataSelectorsSubscription() {

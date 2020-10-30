@@ -1,10 +1,21 @@
-.input-container { 
-    display: inline-block;
+.input-container {
+  display: inline-block;
 }
 
-.add_btn { 
-    background-color:#6a0080;
-    color:#fff;
-    margin-left: 15px;
+.add_mutual_input {
+  width: 500px;
 }
 
+.add_btn {
+  background-color: #6a0080;
+  color: #fff;
+  margin-left: 15px;
+}
+
+@media screen and (max-width: 559px) {
+  .add_mutual_input {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+  }
+}

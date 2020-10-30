@@ -1,0 +1,11 @@
+
+.dialog_container {
+    width: 350px;
+    word-wrap: break-word;
+}
+
+@media screen and (max-width: 559px) {
+    .dialog_container {
+        width: auto;
+    }
+}

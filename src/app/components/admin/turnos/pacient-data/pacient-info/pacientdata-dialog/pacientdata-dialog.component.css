@@ -18,3 +18,33 @@ form {
     min-width: 280px;
 }
 
+@media screen and (max-width: 819px) {
+    .mat-form-field {
+        min-width: 45%;
+    }
+}
+
+@media screen and (max-width: 619px) {
+    .mat-form-field {
+        max-width: 45%;
+    }
+}
+
+@media screen and (max-width: 569px) {
+
+    form {
+        width: 80vw;
+    }
+    .mat-form-field {
+        min-width: 90% !important;
+        max-width: 90% !important;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 569px) {
+    form {
+        width: 75vw;
+    }
+}

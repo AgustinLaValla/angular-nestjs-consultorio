@@ -12,6 +12,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { tap, filter, map, switchMap } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { UiService } from 'src/app/services/ui.service';
+import { CurrentPage } from 'src/app/utils/current-page.enum';
 
 @Component({
   selector: 'app-especialidades',
@@ -34,7 +36,8 @@ export class EspecialidadesComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private matIconRegistry: MatIconRegistry,
     private domSanatizer: DomSanitizer,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private uiService: UiService
   ) {
     this.store.dispatch(loadGetEspecialidades());
   }
@@ -46,6 +49,7 @@ export class EspecialidadesComponent implements OnInit, OnDestroy {
     this.getEspecialidades();
     this.handleErrors();
     this.handlerEspecialidadError();
+    this.uiService.currentPage.next(CurrentPage.ESPECIALIDADES);
   }
 
 
@@ -60,13 +64,13 @@ export class EspecialidadesComponent implements OnInit, OnDestroy {
   openDialog(message: string, id?: string) {
     this.loadingSubs$.unsubscribe();
     const dialogRef = this.dialog.open(DialogServicesComponent, {
-      // height: '600px',
-      data: { message: message, id: id }
+      data: { message: message, id: id },
+      maxWidth: '90vw',
     });
 
     this.loadingSubs$ = dialogRef.afterClosed().pipe(
       switchMap(() => this.store.select(getIsLoading).pipe(
-        map(loading => this.loading = loading)
+        map(loading => this.loading = loading) 
       ))
     ).subscribe();
 

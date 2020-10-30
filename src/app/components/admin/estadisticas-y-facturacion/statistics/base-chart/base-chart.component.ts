@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 
@@ -7,12 +7,12 @@ import { Label } from 'ng2-charts';
   templateUrl: './base-chart.component.html',
   styleUrls: ['./base-chart.component.css']
 })
-export class BaseChartComponent implements OnInit {
+export class BaseChartComponent {
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
-      position: 'top',
+      position: 'top'
     },
     plugins: {
       datalabels: {
@@ -27,12 +27,9 @@ export class BaseChartComponent implements OnInit {
   @Input() public pieChartLabels: Label[] = [];
   @Input() public pieChartData: number[] = [];
   @Input() public pieChartType: ChartType = 'pie';
-  @Input() public title:string;
-  public pieChartLegend = true;
+  @Input() public title: string;
+  @Input() public chartLegends: boolean;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

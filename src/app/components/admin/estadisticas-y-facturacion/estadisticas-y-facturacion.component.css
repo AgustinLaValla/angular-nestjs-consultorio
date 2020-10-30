@@ -7,3 +7,11 @@
     grid-row-gap: 15px;
     justify-content: center;
 }
+ 
+@media screen and  (max-width: 959px) {
+    .container {
+        grid-template-columns: 95%;
+        grid-row-gap: 30px;
+    }
+
+}

@@ -7,7 +7,7 @@
 
     <mat-sidenav #sidenav [(opened)]="opened" mode="side">
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/']" (click)="activateProgressBar()">
+            <a mat-list-item [routerLink]="['/']" (click)="activateProgressBar('turnos')">
                 <mat-icon>schedule</mat-icon>
                 <span style="margin-left: 10px;">Turnos</span>
             </a>
@@ -16,7 +16,7 @@
         <mat-divider></mat-divider>
 
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/estadisticas']" (click)="activateProgressBar()">
+            <a mat-list-item [routerLink]="['/estadisticas']" (click)="activateProgressBar('statistics')">
                 <mat-icon>insert_chart_outlined</mat-icon>
                 <span style="margin-left: 10px;">Estidísticas y Facturación</span>
             </a>
@@ -25,7 +25,7 @@
         <mat-divider></mat-divider>
 
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/stuff']" (click)="activateProgressBar()">
+            <a mat-list-item [routerLink]="['/stuff']" (click)="activateProgressBar('staff')">
                 <mat-icon>group</mat-icon>
                 <span style="margin-left: 10px;">Staff</span>
             </a>
@@ -34,14 +34,14 @@
         <mat-divider></mat-divider>
 
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/especialidades']" (click)="activateProgressBar()">
+            <a mat-list-item [routerLink]="['/especialidades']" (click)="activateProgressBar('especialidades')">
                 <mat-icon>assignment</mat-icon>
                 <span style="margin-left: 10px;">Especialidades</span>
             </a>
         </mat-nav-list>
 
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/mutuales']" (click)="activateProgressBar()">
+            <a mat-list-item [routerLink]="['/mutuales']" (click)="activateProgressBar('mutuales')">
                 <mat-icon svgIcon="medical_folders"></mat-icon>
                 <span style="margin-left: 10px;">Mutuales</span>
             </a>

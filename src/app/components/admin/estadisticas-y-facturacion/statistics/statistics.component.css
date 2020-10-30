@@ -25,3 +25,26 @@
     font-size: 20px;
     margin-top: 10px;
 }
+
+.container button {
+    float: right;
+}
+
+
+@media screen and  (max-width: 959px) {
+
+    .mat-form-field {
+        display: block !important;
+    }
+
+    .container > span {
+        display: block;
+        text-align: center;
+    }
+
+    .container button {
+        float: none;
+        display: block;
+        margin: 20px auto;
+    }
+}

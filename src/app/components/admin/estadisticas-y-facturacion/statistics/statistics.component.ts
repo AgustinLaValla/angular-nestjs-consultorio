@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Renderer2 } from '@angular/core';
 import { AppState, showStatistics, getSpecialistId, getTurnos, getMiembro, getIsLoading } from 'src/app/store/app.reducer';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -41,12 +41,16 @@ export class StatisticsComponent implements OnDestroy {
   public barChart: any;
   public baseChart: any;
   public doughnutChart: any;
+  public showChartLegends: boolean = true;
 
   public from: moment.Moment = moment().startOf('month');
   public to: moment.Moment = moment().endOf('month');
   public currentDate = moment().endOf('day');
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private renderer: Renderer2
+  ) {
 
     this.showStatistics();
     this.getEspecialistaId();
@@ -55,8 +59,12 @@ export class StatisticsComponent implements OnDestroy {
     this.getMiembro();
   };
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.store.dispatch(hiddeProgressBar());
+    this.renderer.listen(window, 'resize', (ev) => {
+      this.showOrHideLegends(ev.target.innerWidth)
+    });
+    this.showOrHideLegends(this.renderer.selectRootElement(window).innerWidth);
   }
 
   showStatistics() {
@@ -141,7 +149,7 @@ export class StatisticsComponent implements OnDestroy {
   };
 
   getObrasSociales(turnos: Turno[]) {
-    let obrasSociales: Array<Mutual>  = []
+    let obrasSociales: Array<Mutual> = []
     turnos.map(turno => {
       const mutualExists = obrasSociales.find(mutual => mutual._id === turno.obraSocial._id);
       if (!mutualExists) {
@@ -242,6 +250,16 @@ export class StatisticsComponent implements OnDestroy {
     });
     // return columns;
   }
+
+  showOrHideLegends(innerWidth: number) {
+    if (innerWidth > 559) {
+      this.showChartLegends = true;
+    }
+    else {
+      this.showChartLegends = false;
+    }
+  }
+
 
   ngOnDestroy(): void {
     this.showStatisticsSubs$.unsubscribe();

@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { tap, filter, map, switchMap } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
+import { UiService } from 'src/app/services/ui.service';
+import { CurrentPage } from 'src/app/utils/current-page.enum';
 
 @Component({
   selector: 'app-stuff',
@@ -29,16 +31,18 @@ export class StuffComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private dialog: MatDialog,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private uiService: UiService
   ) {
     this.store.dispatch(loadGetStuff())
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.store.dispatch(hiddeProgressBar());
     this.loadingSubs = this.store.select(getIsLoading).subscribe((loading: boolean) => this.loading = loading)
     this.getStuff();
     this.handleErrors();
+    this.uiService.currentPage.next(CurrentPage.STAFF);
   }
 
   getStuff() {

@@ -1,22 +1,85 @@
-.nueva-especialidad-input-container { 
-    display: inline-block;
+.nueva-especialidad-input-container {
+  display: inline-block;
+}
+.input_container {
+  display: flex;
+  flex-direction: row;
 }
 
-.add_btn { 
-    background-color:#6a0080;
-    color:#fff;
-    margin-left: 15px;
+.add_service_input {
+  width: 500px;
 }
 
+.add_service_btn {
+  margin-left: 75px;
+  height: 40px;
+}
+.add_btn {
+  background-color: #6a0080;
+  color: #fff;
+  margin-left: 15px;
+}
 
-#alert-card { 
+.mat-dialog-content {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.iconButtons {
+  display: block;
+  text-align: center;
+}
+
+.actionIcons {
+  display: none;
+}
+
+#alert-card {
+  text-align: center;
+  background: rgba(233, 30, 99, 0.7);
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  padding: 15 0px;
+  font-size: 20px;
+  margin-top: 50px;
+  width: 95%;
+  margin: 15px auto 0 auto;
+}
+
+@media screen and (max-width: 559px) {
+  h3 {
     text-align: center;
-    background:rgba(233, 30, 99, 0.7);
-    color: rgba(0, 0, 0, 0.7);
-    font-weight: 400;
-    padding: 15 0px;
+  }
+  .input_container {
+    display: block;
+  }
+
+  .add_service_input {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+  }
+  .add_service_btn {
+    display: block;
+    margin: 5px auto;
+  }
+  .list-icon {
+    display: none;
+  }
+  .mat-list-item h4 {
+    white-space: pre-wrap;
+    font-size: 15px;
+  }
+
+  .mat-icon {
     font-size: 20px;
-    margin-top: 50px;
-    width: 95%;
-    margin: 15px auto 0 auto;
+  }
+
+  .iconButtons {
+    display: none;
+  }
+
+  .actionIcons {
+    display: inline-block;
+  }
 }

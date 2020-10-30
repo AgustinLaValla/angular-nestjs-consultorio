@@ -12,6 +12,7 @@ export class DoughnutChartComponent implements OnInit {
   @Input() public doughnutChartData:MultiDataSet;  
   @Input() public doughnutChartType: ChartType  ;
   @Input() public title:string;
+  @Input() public chartLegends: boolean;
 
   constructor() { }
 

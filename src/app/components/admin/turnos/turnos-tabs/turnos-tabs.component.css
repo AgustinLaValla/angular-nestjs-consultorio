@@ -2,6 +2,8 @@
 .btn_group {
     float: right;
     right: 30px; /*50px*/
+    position: relative;
+
 } 
 
 .add_member_btn  {
@@ -15,4 +17,26 @@
 }
 .mat-tab-group { 
     clear: both;
+}
+
+@media screen and (max-width: 959px) {
+    .btn_group {
+        float: none;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;  
+        right: 0px;
+        width: 100%; 
+    }
+
+    .close_btn {
+        position: absolute;
+        right: 0px;
+        top: 0;
+        margin: 0;
+    }
+
+    .add_member_btn {
+        margin: 0px;
+    }
 }

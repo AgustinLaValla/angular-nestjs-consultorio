@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Renderer2 } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { InitialDialogComponent } from './components/initial-dialog/initial-dialog.component'; 
+import { InitialDialogComponent } from './components/initial-dialog/initial-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +9,20 @@ import { InitialDialogComponent } from './components/initial-dialog/initial-dial
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(@Inject(AuthService) private authService: AuthService, private dialog:MatDialog) { 
+
+  constructor(
+    @Inject(AuthService) private authService: AuthService,
+    private dialog: MatDialog,
+  ) {
     this.authService.initAuthListener();
     this.openInitialDialog();
-   }
+
+  }
 
   openInitialDialog() {
     this.dialog.open(InitialDialogComponent, {
-      width: '400px',
+      maxWidth: '90vw',
+      maxHeight: '600px'
     })
   }
-
 }

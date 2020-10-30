@@ -1,25 +1,16 @@
-<div class="animated fadeIn">
+<div class="btn_group animated fadeIn">
+    <button (click)="openDialog('Agregar Turno')" class="add_member_btn" mat-raised-button>
+        <mat-icon>add</mat-icon>
+        Agregar Turno
+    </button>
 
-    <div  class="btn_group">
-        <button 
-                 (click)="openDialog('Agregar Turno')"
-                 class="add_member_btn" 
-                 mat-raised-button>
-                <mat-icon>add</mat-icon>
-                Agregar Turno
-        </button>
-    
-        <button mat-raised-button 
-                color="warn" 
-                class="close_btn" 
-                (click)="closeTabs()"
-                matTooltip="Close Table"
-        >       <mat-icon>close</mat-icon>
-        </button>
-    </div>
-
-
+    <button mat-raised-button color="warn" class="close_btn" (click)="closeTabs()" matTooltip="Close Table">
+        <mat-icon>close</mat-icon>
+    </button>
 </div>
+
+
+
 
 
 <mat-tab-group [(selectedIndex)]="tabIndex" (selectedTabChange)="showTableOrCalendar()">

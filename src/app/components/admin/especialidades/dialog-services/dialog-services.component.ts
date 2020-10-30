@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, Renderer2, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Especialidad, Servicio } from 'src/app/interfaces/especialidad.interface';
 import { Store } from '@ngrx/store';
-import { AppState, getIsLoading, getEspecialidad, getEspecialidadError } from 'src/app/store/app.reducer';
+import { AppState, getIsLoading, getEspecialidad } from 'src/app/store/app.reducer';
 import { loadAddEspecialidad, deactivateLoading } from 'src/app/store/actions';
 import { loadGetEspecialidad, loadAddServicio, loadDeleteServicio, loadUpdateServicio } from 'src/app/store/actions/especialidad.action';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { tap, filter, map } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
-import { AlertsService } from 'src/app/services/alerts.service';
+
 
 @Component({
   selector: 'app-dialog-services',
@@ -34,6 +34,7 @@ export class DialogServicesComponent implements OnInit, OnDestroy {
   private loadingSubs$ = new Subscription();
   private especialidadSubs$ = new Subscription();
 
+  @ViewChildren('listIcon', { read: ElementRef }) public listIcons: QueryList<ElementRef>;
 
   constructor(
     public dialogRef: MatDialogRef<DialogServicesComponent>,
@@ -41,6 +42,7 @@ export class DialogServicesComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private matIconRegistry: MatIconRegistry,
     private domSanatizer: DomSanitizer,
+    private renderer: Renderer2
   ) {
 
     this.matIconRegistry.addSvgIcon('stethoscope-medical-tool',
@@ -48,17 +50,18 @@ export class DialogServicesComponent implements OnInit, OnDestroy {
     )
     this.loadingSubs$ = this.store.select(getIsLoading).subscribe((loading: boolean) => this.loading = loading);
     this.getEspecialidad();
-    
+
     if (data.id) {
       this.store.dispatch(loadGetEspecialidad({ id: data.id }));
     };
   };
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.renderer.listen(window, 'resize', ev => this.showOrHideIcons(ev.target.innerWidth));
+   }
 
   getEspecialidad() {
     this.especialidadSubs$ = this.store.select(getEspecialidad).pipe(
-      tap(console.log),
       tap(() => this.store.dispatch(deactivateLoading())),
       filter(especialidad => !isNullOrUndefined(especialidad)),
       map(especialidad => this.especialidad = especialidad)
@@ -95,8 +98,10 @@ export class DialogServicesComponent implements OnInit, OnDestroy {
   cancelEditServicio(id: number) {
     document.getElementById(`${id}`).style.display = 'none';
     document.getElementById(`item${id}`).style.display = 'inline-block';
-    document.getElementById(`icon${id}`).style.display = 'inline-block';
     this.selectedServicio = this.especialidad.servicios[id];
+    if (this.renderer.selectRootElement(window).innerWidth > 559) {
+      document.getElementById(`icon${id}`).style.display = 'inline-block';
+    }
   };
 
 
@@ -110,6 +115,13 @@ export class DialogServicesComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   };
 
+  showOrHideIcons(innerWidth: number) {
+    if(innerWidth > 559) {
+      this.listIcons.forEach(item => item.nativeElement.style.display = 'block');
+    } else {
+      this.listIcons.forEach(item => item.nativeElement.style.display = 'none');
+    }
+  }
 
   ngOnDestroy(): void {
     this.loadingSubs$.unsubscribe();

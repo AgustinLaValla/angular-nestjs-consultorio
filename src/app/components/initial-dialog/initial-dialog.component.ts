@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-initial-dialog',
   templateUrl: './initial-dialog.component.html',
-  styles: []
+  styleUrls: ['./initial-dialog.component.css']
 })
 export class InitialDialogComponent implements OnInit {
 

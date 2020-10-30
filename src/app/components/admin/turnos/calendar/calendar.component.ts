@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, HostListener, AfterViewInit, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState, getTurnos, getShowCalendar, getEspecialistId, getMiembro, getIsLoading } from 'src/app/store/app.reducer';
 import { Subscription } from 'rxjs';
@@ -17,12 +17,13 @@ import { Miembro } from 'src/app/interfaces/miembro.interface';
 import es from '@fullcalendar/core/locales/es';
 import { tap, filter, map } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit, OnDestroy {
+export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public es = es;
 
@@ -43,11 +44,22 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   public calendarPlugins = [dayGridPlugin, timeGrigPlugin];
   public calendarEvents: EventInput[] = [];
-  public validRange: DateRangeInput = { start: this.getStartRange(), end: this.getEndRange() }
+  public validRange: DateRangeInput = { start: this.getStartRange(), end: this.getEndRange() };
 
-  @ViewChild('calendar') calendar: FullCalendarComponent;
+  public calendarHeader: Object;
+  public calendardefaultView: string;
 
-  constructor(private store: Store<AppState>, private dialog: MatDialog) { }
+  private calendarChanges$ = new Subscription();
+
+  @ViewChildren('calendar') calendarChildren: QueryList<FullCalendarComponent>;
+  @ViewChild('calendar') calendarChild: FullCalendarComponent;
+
+
+  constructor(
+    private store: Store<AppState>,
+    private dialog: MatDialog,
+    private renderer: Renderer2
+  ) { }
 
   ngOnInit(): void {
     this.getEspecialistaId();
@@ -55,6 +67,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.showOrHideCalendar();
     this.miembroSubs$ = this.store.select(getMiembro).subscribe((miembro: Miembro) => this.miembro = miembro);
     this.loadingSubs$ = this.store.select(getIsLoading).subscribe(loading => this.loading = loading);
+  }
+
+  ngAfterViewInit() {
+    this.setCalendarProperties(window.innerWidth);
+    this.setMobileDefaultView();
   }
 
   showOrHideCalendar() {
@@ -134,6 +151,42 @@ export class CalendarComponent implements OnInit, OnDestroy {
     return `${year}-${month}-${date}`;
   };
 
+  @HostListener('window:resize', ['$event'])
+  changeCalendarHeader(event) {
+    this.setCalendarProperties(event.target.innerWidth);
+  }
+
+  setCalendarProperties(innerWidth: number) {
+    if (innerWidth > 539) {
+      this.calendardefaultView = 'dayGridMonth';
+      this.calendarHeader = {
+        left: 'prev,next',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      }
+    } else {
+      this.calendardefaultView = 'timeGridDay';
+      this.calendarHeader = {
+        left: 'prev,next',
+        center: 'title',
+        right: 'timeGridDay'
+      }
+
+      if (this.calendarChild) {
+        this.calendarChild.getApi().changeView('timeGridDay');
+      }
+    }
+  }
+
+  setMobileDefaultView() {
+    this.calendarChanges$ = this.calendarChildren.changes.subscribe(calend => {
+      
+      if (this.renderer.selectRootElement(window).innerWidth < 540) {
+        calend.first.getApi().changeView('timeGridDay');
+
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     this.turnosSubs$.unsubscribe();
@@ -141,6 +194,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.especialistIdSubs$.unsubscribe();
     this.miembroSubs$.unsubscribe();
     this.loadingSubs$.unsubscribe();
+    this.calendarChanges$.unsubscribe();
   };
 
 };

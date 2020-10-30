@@ -7,7 +7,19 @@
     z-index: 10;
 }
 
+.mat-nav-list {
+    border-bottom: #6a0080;
+} 
+
 .mat-nav-list a{
     margin: 0;
     color: white;
+}
+
+@media screen and (max-width: 599px) {
+    .mat-sidenav {
+        top: 56px;
+        width: 100%;
+        z-index: 1000;
+    }
 }

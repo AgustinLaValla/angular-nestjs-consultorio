@@ -4,19 +4,22 @@
 
         <mat-dialog-content>
 
-            <div *ngIf="data.message == 'Editar Servicios' " style="display: flex; flex-direction: row;">
-                <mat-form-field style="width: 500px;">
-                    <input matInput 
-                           placeholder="Agregar Servicio"
-                           name="newServicio"
-                           [(ngModel)]="newServicio"
-                           (keyup.enter)="addNewServicio()" 
+            <div *ngIf="data.message == 'Editar Servicios' " class="input_container">
+                <mat-form-field class="add_service_input">
+                    <input
+                        matInput 
+                        placeholder="Agregar Servicio"
+                        name="newServicio"
+                        [(ngModel)]="newServicio"
+                        (keyup.enter)="addNewServicio()" 
                     >
                 </mat-form-field>
-                <button (click)="addNewServicio()" 
-                        mat-raised-button 
-                        color="primary" 
-                        style="margin-left: 75px; height: 40px;">
+                <button 
+                    (click)="addNewServicio()" 
+                    mat-raised-button 
+                    color="primary" 
+                    class="add_service_btn"
+                >
                         <mat-icon>done</mat-icon>
                     Agregar Servicio
                 </button>
@@ -24,38 +27,63 @@
 
            <div *ngIf="especialidad && especialidad.servicios.length > 0" >
             <mat-list-item *ngFor="let servicio of especialidad.servicios; let i = index">
-                <mat-icon id="icon{{i}}" mat-list-icon svgIcon="stethoscope-medical-tool"></mat-icon>
+                <mat-icon id="icon{{i}}" mat-list-icon svgIcon="stethoscope-medical-tool" class="list-icon" #listIcon></mat-icon>
                 <h4 id="item{{i}}"  mat-line>{{ servicio.nombre }}</h4>
 
                 <mat-form-field id="{{i}}" style="display: none;">
-                    <input matLine 
-                           matInput 
-                           autofocus
-                           id="input{{i}}"
-                           value="{{servicio.nombre}}" 
-                           name="selectedServicio"
-                           [(ngModel)]="selectedServicio.nombre "
-                          (blur)="cancelEditServicio(i)"
-                          (key.esc)="cancelEditServicio(i)"
-                          (keyup.enter)="updateServicio(i)"
-                          >
+                    <input 
+                        matLine 
+                        matInput 
+                        autofocus
+                        id="input{{i}}"
+                        value="{{servicio.nombre}}" 
+                        name="selectedServicio"
+                        [(ngModel)]="selectedServicio.nombre "
+                        (blur)="cancelEditServicio(i)"
+                        (key.esc)="cancelEditServicio(i)"
+                        (keyup.enter)="updateServicio(i)"
+                    >
                 </mat-form-field>
 
-                <button *ngIf="data.message == 'Editar Servicios' " 
-                        (click)="editServicio(i)" 
-                         mat-raised-button
-                         color="accent" 
-                         style="text-align: center;">
+                <button 
+                    *ngIf="data.message == 'Editar Servicios' " 
+                    (click)="editServicio(i)" 
+                    mat-raised-button
+                    color="accent" 
+                    class="iconButtons"
+                >
                     <mat-icon matTooltip="Editar Servicio">edit</mat-icon>
                 </button>
                 &nbsp;&nbsp;
-                <button *ngIf="data.message == 'Editar Servicios' " 
-                         (click)="deleteServicio(i)" 
-                         mat-raised-button
-                         color="warn" 
-                         style="text-align: center;">
+                <button 
+                    *ngIf="data.message == 'Editar Servicios' " 
+                    (click)="deleteServicio(i)" 
+                    mat-raised-button
+                    color="warn" 
+                    class="iconButtons"
+                >
                     <mat-icon matTooltip="Eliminar Servicio">delete</mat-icon>
                 </button>
+
+                <mat-icon 
+                    *ngIf="data.message == 'Editar Servicios' " 
+                    matTooltip="Editar Servicio" 
+                    class="actionIcons" 
+                    (click)="editServicio(i)" 
+                    color="primary"
+                >
+                    edit
+                </mat-icon>
+                <mat-icon 
+                    *ngIf="data.message == 'Editar Servicios' " 
+                    matTooltip="Eliminar Servicio" 
+                    class="actionIcons" 
+                    (click)="deleteServicio(i)" 
+                    color="warn"
+                >
+                    delete
+                </mat-icon>
+
             </mat-list-item>
            </div>
         
@@ -71,20 +99,16 @@
 </div>
 
 <div *ngIf="data.message == 'Agregar Especialidad' && !loading ">
-
     <h3>{{ data.message }}</h3>
-
     <form>
-
         <div class="nueva-especialidad-input-container">
-            <mat-form-field style="width: 500px;">
+            <mat-form-field class="add_service_input">
                 <input matInput placeholder="Nombre de la Especialidad" 
                        name="nombreEspecialidad"
                        [(ngModel)]="nuevaEspecialidad.nombreEspecialidad"
                        #nuevaEspecialidadForm="ngModel" 
                 >
             </mat-form-field>
-
             <button (click)="addEspecialidad()" mat-raised-button class="add_btn">
                 <mat-icon>add</mat-icon>Agregar
             </button>

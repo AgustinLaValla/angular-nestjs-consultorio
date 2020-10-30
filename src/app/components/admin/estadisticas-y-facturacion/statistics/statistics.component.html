@@ -20,7 +20,7 @@
 
     <span *ngIf="turnos.length > 0">Turnos Totales: {{turnos.length}}</span>
 
-    <button (click)="generatePdf()" mat-raised-button color="warn" style="float:right">
+    <button (click)="generatePdf()" mat-raised-button color="warn">
         <mat-icon>add</mat-icon>
         Generar Reporte de Facturación
     </button>
@@ -40,6 +40,7 @@
                      [pieChartLabels]="baseChart.labels"
                      [pieChartType]="baseChart.type"
                      [title]="baseChart.title"    
+                     [chartLegends]="showChartLegends"
     >
         
     </app-base-chart>
@@ -51,6 +52,7 @@
                         [doughnutChartData]="doughnutChart.data" 
                         [doughnutChartType]="doughnutChart.type" 
                         [title]="doughnutChart.title"
+                        [chartLegends]="showChartLegends"
 
     >
     </app-doughnut-chart>

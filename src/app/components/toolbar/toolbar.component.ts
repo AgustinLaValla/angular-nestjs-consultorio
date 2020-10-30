@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Renderer2 } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,16 +8,27 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  public title:string = 'Medical Appoiments App';
+  public title: string = 'Medical Appoiments App';
   @Output() public opened = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
+    this.onWindowResize();
   }
 
   isOpen() {
     this.opened.emit();
+  }
+
+  onWindowResize() {
+    this.renderer.listen(window, 'resize', (ev) => {
+      if (ev.target.innerWidth < 350) {
+        this.title = 'Appoiments App';
+      } else {
+        this.title = 'Medical Appoiments App';
+      }
+    });
   }
 
 }

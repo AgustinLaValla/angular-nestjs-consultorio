@@ -17,25 +17,28 @@ export class TurnosTabsComponent implements OnInit, OnDestroy {
 
 
   private especialistIdSubs$ = new Subscription();
-  public especialistId:string;
+  public especialistId: string;
 
   private openTableSubs$ = new Subscription();
-  public isOpen:boolean = false;
+  public isOpen: boolean = false;
 
   private tableTypeSubs$ = new Subscription();
   public tableType: 'Especialistas' | 'Turnos Pasados';
 
-  public tabIndex:number = 1;
+  public tabIndex: number = 1;
 
-  constructor(private store:Store<AppState>, private dialog:MatDialog) { }
+  constructor(
+    private store: Store<AppState>,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getEspecialistaId();
     this.tableSubs();
-    
+
   };
 
-  getEspecialistaId() { 
+  getEspecialistaId() {
 
     this.especialistIdSubs$ = this.store.select(getEspecialistId).pipe(
       filter((especialistId) => !isNullOrUndefined(especialistId)),
@@ -44,18 +47,18 @@ export class TurnosTabsComponent implements OnInit, OnDestroy {
     ).subscribe();
   };
 
-  tableSubs() { 
+  tableSubs() {
     this.openTableSubs$ = this.store.select(openTable).subscribe((isOpen) => this.isOpen = isOpen);
     this.tableTypeSubs$ = this.store.select(getTableType).subscribe(tableType => this.tableType = tableType);
   };
 
-  showTableOrCalendar() {  
-    if(this.tabIndex === 0) { 
-      this.store.dispatch( hideCalendar() );
-      this.store.dispatch( loadResetTurnoList() );
-      this.store.dispatch( loadOpenTable({especialistaId:this.especialistId, tableType:'Especialistas',counter:15}) );
-    } else { 
-      this.store.dispatch( loadResetTurnoList() );
+  showTableOrCalendar() {
+    if (this.tabIndex === 0) {
+      this.store.dispatch(hideCalendar());
+      this.store.dispatch(loadResetTurnoList());
+      this.store.dispatch(loadOpenTable({ especialistaId: this.especialistId, tableType: 'Especialistas', counter: 15 }));
+    } else {
+      this.store.dispatch(loadResetTurnoList());
       this.store.dispatch(loadCloseTable());
       this.store.dispatch(loadGetTurnos({ id: this.especialistId, counter: 10000 }));
       this.store.dispatch(showCalendar());
@@ -64,7 +67,8 @@ export class TurnosTabsComponent implements OnInit, OnDestroy {
 
   openDialog(action: string, turno = null) {
     this.dialog.open(TurnosDialogComponent, {
-      data: { action: action, especialistaId: this.especialistId, turno: turno }
+      data: { action: action, especialistaId: this.especialistId, turno: turno },
+      maxWidth: '90vw'
     })
   }
 
