@@ -48,7 +48,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.authService.logout();
   };
 
-  activateProgressBar(page: CurrentPage) {
+  activateProgressBar(page: any) {
+
     if (this.currentPage !== page) {
       this.store.dispatch(showProgressBar());
       this.uiService.currentPage.next(page);
