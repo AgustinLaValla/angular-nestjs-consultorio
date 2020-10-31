@@ -31,7 +31,7 @@
 }
 
 
-@media screen and  (max-width: 959px) {
+@media screen and  (max-width: 799px) {
 
     .mat-form-field {
         display: block !important;

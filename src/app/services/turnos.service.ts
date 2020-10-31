@@ -115,7 +115,7 @@ export class TurnosService {
         this.store.select(getUpdatedFromPacientSection).pipe(
             filter(value => !isNullOrUndefined(value)),
             map(value => this.turnoUpdatedFromPacientSection = value)
-        ).subscribe(console.log);
+        ).subscribe();
     }
 
 

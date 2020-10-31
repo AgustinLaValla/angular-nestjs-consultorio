@@ -50,7 +50,7 @@ export class StuffComponent implements OnInit, OnDestroy {
       tap(() => this.store.dispatch(deactivateLoading())),
       filter(stuff => !isNullOrUndefined(stuff)),
       map(stuff => this.stuff = stuff)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   openDialog(action: string, id?: string) {

@@ -32,7 +32,7 @@ export class StuffService {
 
   updateMiembro(miembro: Miembro, image?: string | ArrayBuffer): Observable<Miembro> {
     const body = this.setBody(miembro, image);
-    return this.http.put(`${URL}/stuff/update/${miembro._id}`, body).pipe(tap(console.log),map(resp => resp['miembro']));
+    return this.http.put(`${URL}/stuff/update/${miembro._id}`, body).pipe(map(resp => resp['miembro']));
   }
 
   deleteMiembro(id: string): Observable<Object> {

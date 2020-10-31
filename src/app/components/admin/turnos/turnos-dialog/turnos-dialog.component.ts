@@ -37,10 +37,10 @@ export class TurnosDialogComponent implements OnInit, OnDestroy {
     desde: null,
     hasta: null,
     obraSocial: { nombre: null, _id: null },
-    numeroDeAfiliado: '',
+    numeroDeAfiliado: null,
     telefono: '',
     dateInSeconds: 0,
-    especialistaId: ''
+    especialistaId: null
   };
 
   public servicios: Servicio[];

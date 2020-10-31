@@ -102,6 +102,7 @@ export class TurnosTableComponent implements OnInit, OnDestroy {
 
     this.turnosSubs$ = this.store.select(getTurnos).pipe(
       tap((turnos) => {
+        console.log(turnos);
         this.store.dispatch(deactivateLoading());
         if (isNullOrUndefined(turnos) || turnos.length == 0) {
           this.store.dispatch(loadGetMiembro({ id: this.especialistaId }));

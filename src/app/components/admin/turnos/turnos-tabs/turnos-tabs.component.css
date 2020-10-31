@@ -19,7 +19,7 @@
     clear: both;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 799px) {
     .btn_group {
         float: none;
         display: flex;
