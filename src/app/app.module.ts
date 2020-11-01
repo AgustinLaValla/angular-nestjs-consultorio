@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 import { appReducer } from './store/app.reducer';
 import { effectsArray } from './store/effects';
 import { HttpClientModule } from '@angular/common/http';
-import { InitialDialogComponent } from './components/initial-dialog/initial-dialog.component';
+import { InitialDialogComponent } from './components/initial-dialog/initial-dialog.component';  
 
 
 @NgModule({

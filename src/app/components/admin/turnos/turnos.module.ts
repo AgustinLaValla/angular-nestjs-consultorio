@@ -23,6 +23,8 @@ import { PacientdataDialogComponent } from './pacient-data/pacient-info/pacientd
 import { CalendarComponent } from './calendar/calendar.component';
 import { TurnosTabsComponent } from './turnos-tabs/turnos-tabs.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { FieldValidatorDirective } from '../../../directives/field-validator.directive';
+import { StringFilterPipe } from '../../../pipes/string-filter.pipe';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -43,6 +45,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     PacientdataDialogComponent,
     CalendarComponent,
     TurnosTabsComponent,
+    FieldValidatorDirective,
+    StringFilterPipe
   ],
   imports: [
     CommonModule,
@@ -50,7 +54,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MaterialModule,
     FormsModule,
     MatMomentDateModule,
-    FullCalendarModule
+    FullCalendarModule,
   ],
   exports: [MaterialModule, FormsModule, MatMomentDateModule, ScrollableDirective, EspecialistasListComponent],
   providers: [ 

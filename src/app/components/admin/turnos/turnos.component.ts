@@ -81,7 +81,7 @@ export class TurnosComponent implements OnInit, OnDestroy {
         }
       }),
       tap(() => this.store.dispatch(deactivateLoading()))
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   ngOnDestroy(): void {

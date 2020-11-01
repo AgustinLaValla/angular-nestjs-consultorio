@@ -1,6 +1,8 @@
 .ver_mas { 
-    text-align: center;
     color: #a100ad;
+    display: block;
+    text-align: center;
+    cursor: pointer;
 }
 
 .ver_mas:hover { 

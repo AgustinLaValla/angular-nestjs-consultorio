@@ -191,11 +191,6 @@ export class TurnosDialogComponent implements OnInit, OnDestroy {
       this.new_turno.dateInSeconds = this.fecha.clone().utc().hour(desdeHour).minutes(desdeMinutes).unix();
       this.new_turno.nacimiento = this.nacimiento.clone().utc().toString();
       this.new_turno.nacimientoSeconds = moment(this.nacimiento).clone().unix();
-      if ((this.new_turno.consulta._id === null && this.new_turno.consulta.nombre === null) ||
-        this.new_turno.obraSocial.nombre === null && this.new_turno.obraSocial._id === null) {
-        this.alertsService.showWarningService('Faltan completar campos', 'Los campos consulta y mutual son requeridos');
-        return;
-      };
       this.store.dispatch(loadAddTurno({ turno: this.new_turno }));
     } else {
       if (this.data.action === 'Añadir Diagnóstico') {
@@ -207,11 +202,6 @@ export class TurnosDialogComponent implements OnInit, OnDestroy {
       this.new_turno.numeroDeAfiliado = this.new_turno.obraSocial.nombre !== 'Particular' ? this.new_turno.numeroDeAfiliado : null;
       if (this.data.fromPacientTable) {
         this.store.dispatch(turnoUpdatedFromPacientSection({ updatedFromPacientSection: true }));
-      };
-      if ((this.new_turno.consulta._id === null && this.new_turno.consulta.nombre === null) ||
-        this.new_turno.obraSocial.nombre === null && this.new_turno.obraSocial._id === null) {
-        this.alertsService.showWarningService('Faltan completar campos', 'Los campos consulta y mutual son requeridos');
-        return;
       };
       this.store.dispatch(loadUpdateSingleTurno({ turno: this.new_turno }));
     };

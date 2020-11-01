@@ -95,11 +95,12 @@
         <mat-form-field *ngIf="miembro">
             <mat-label>Consulta</mat-label>
             <mat-select [(ngModel)]="new_turno.consulta"  
-                        #servicio="ngModel" 
+                        #consulta="ngModel" 
                         name="consulta" 
                         [disabled]="data.action === 'Añadir Diagnóstico'"
                         [compareWith]="compareConsultaWithServicio"
                         required
+                        fieldValidator
                         >
 
                         <mat-option *ngFor="let consulta of miembro.especialidad.servicios" [value]="consulta">
@@ -107,7 +108,8 @@
                         </mat-option>
 
             </mat-select>
-            <mat-error *ngIf="servicio && servicio.hasError('required')">Este campo es obligatorio</mat-error>
+            <mat-error *ngIf="consulta && consulta.hasError('required')">Este campo es obligatorio</mat-error>
+            <mat-error *ngIf="consulta.hasError('isEmpty')">Este campo es obligatorio</mat-error>
         </mat-form-field>
 
         <mat-form-field *ngIf="miembro">
@@ -118,11 +120,14 @@
                         [disabled]="data.action === 'Añadir Diagnóstico'"
                         [compareWith]="compareMutuales"
                         (ngModelChange)="findMutual($event)"
+                        fieldValidator
+                        #obraSocial="ngModel"
                         >
                 <mat-option *ngFor="let mutual of miembro.mutualesAdheridas" [value]="mutual">{{ mutual.nombre }}</mat-option>
             </mat-select>
             <mat-error>Este campo es obligatorio</mat-error>
             <mat-error *ngIf="!mutualIsAccepted">El médico {{miembro.nombre}} no adhiere a la mutual: {{new_turno.obraSocial.nombre}}</mat-error>
+            <mat-error *ngIf="obraSocial.hasError('isEmpty')">Este campo es obligatorio</mat-error>
         </mat-form-field>
 
         <mat-form-field *ngIf="miembro && new_turno.obraSocial.nombre !== 'Particular'">

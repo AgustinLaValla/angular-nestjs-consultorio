@@ -31,10 +31,9 @@ form {
         width: 80vw;
     }
     .mat-form-field {
-        min-width: 90% !important;
-        max-width: 90% !important;
-        display: block;
-        margin: 0 auto;
+        min-width: 40% !important;
+        max-width: 40% !important;
+
     }
 }
 
