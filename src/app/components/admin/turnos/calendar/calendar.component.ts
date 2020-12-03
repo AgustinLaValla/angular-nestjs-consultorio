@@ -145,9 +145,18 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   getEndRange() {
+
     const year = moment().add(1, 'year').year();
-    const month = (moment().add(1, 'month').month() < 10) ? `0${moment().add(1, 'month').month()}` : moment().add(1, 'month').month();
+
+    let currentMonth = moment().add(1, 'month').month();
+
+    const month = currentMonth === 0 ? '01' :
+      currentMonth < 10
+        ? `0${currentMonth}`
+        : currentMonth;
+
     const date = moment().date() < 10 ? `0${moment().date()}` : moment().date();
+    console.log(`${year}-${month}-${date}`);
     return `${year}-${month}-${date}`;
   };
 
@@ -180,7 +189,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setMobileDefaultView() {
     this.calendarChanges$ = this.calendarChildren.changes.subscribe(calend => {
-      
+
       if (this.renderer.selectRootElement(window).innerWidth < 540) {
         calend.first.getApi().changeView('timeGridDay');
 
