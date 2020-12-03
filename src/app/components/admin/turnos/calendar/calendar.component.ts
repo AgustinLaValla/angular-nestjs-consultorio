@@ -156,7 +156,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         : currentMonth;
 
     const date = moment().date() < 10 ? `0${moment().date()}` : moment().date();
-    console.log(`${year}-${month}-${date}`);
     return `${year}-${month}-${date}`;
   };
 
